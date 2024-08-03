@@ -1,9 +1,8 @@
 {
-  "name": "hardhat",
+  "name": "template-hardhat",
   "version": "1.0.0",
-  "description": "template",
-  "main": "index.js",
-  "repository": "https://github.com/tranbamanh229289/template-contract",
+  "description": "template hardhat project",
+  "repository": "https://github.com/tranbamanh229289/template-hardhat",
   "author": "manhtb",
   "license": "MIT",
   "devDependencies": {
