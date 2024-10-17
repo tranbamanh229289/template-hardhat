@@ -4,10 +4,6 @@ import "@nomicfoundation/hardhat-toolbox";
 
 dotenv.config();
 
-//API key provider
-const API_KEY_ALCHEMY = process.env.API_KEY;
-const API_KEY_INFURA = process.env.API_KEY_INFURA;
-
 //API key verify
 const API_KEY_ETHERSCAN = process.env.API_KEY_ETHERSCAN as string;
 const API_KEY_ARBISCAN = process.env.API_KEY_ARBISCAN as string;
@@ -23,22 +19,23 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 
 //Config network
 const configNetwork = {
-  mainnet: `https://eth-mainnet.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  arbitrum: `https://arb-mainnet.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  bsc: `https://bsc-dataseed.binance.org`,
-  base: `https://base-mainnet.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  polygon: `https://polygon-mainnet.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  blast: `https://blast-mainnet.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  avalanche: `https://avalanche-mainnet.infura.io/v3/${API_KEY_INFURA}`,
-  optimism: `https://opt-mainnet.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  eth_sepolia: `https://eth-sepolia.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  arbitrum_sepolia: `https://arb-sepolia.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  bsc_testnet: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
-  base_sepolia: `https://base-sepolia.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  polygon_amoy: `https://polygon-amoy.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  blast_sepolia: `https://blast-sepolia.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
-  avalanche_fuji: `https://avalanche-fuji.infura.io/v3/${API_KEY_INFURA}`,
-  optimism_sepolia: `https://opt-sepolia.g.alchemy.com/v2/${API_KEY_ALCHEMY}`,
+  hardhat: "https://127.0.0.1:8545",
+  mainnet: "https://ethereum-rpc.publicnode.com",
+  arbitrum: "https://arb1.arbitrum.io/rpc",
+  bsc: "https://bsc-dataseed-public.bnbchain.org",
+  base: "https://mainnet.base.org",
+  polygon: "https://polygon-rpc.com",
+  blast: "https://rpc.blast.io",
+  avalanche: "https://avalanche-c-chain-rpc.publicnode.com",
+  optimism: "https://mainnet.optimism.io",
+  sepolia: "https://sepolia.drpc.org",
+  arbitrum_sepolia: "https://sepolia-rollup.arbitrum.io/rpc",
+  bsc_testnet: "https://bsc-testnet-dataseed.bnbchain.org",
+  base_sepolia: "https://sepolia.base.org",
+  polygon_amoy: "https://rpc-amoy.polygon.technology",
+  blast_sepolia: "https://sepolia.blast.io",
+  avalanche_fuji: "https://avalanche-fuji-c-chain-rpc.publicnode.com",
+  optimism_sepolia: "https://sepolia.optimism.io",
 };
 
 //Config hardhat
@@ -56,7 +53,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {},
     localhost: {
-      url: "https://127.0.0.1:8545",
+      url: configNetwork.hardhat,
     },
     mainnet: {
       url: configNetwork.mainnet,
@@ -91,7 +88,7 @@ const config: HardhatUserConfig = {
       accounts: [PRIVATE_KEY],
     },
     eth_sepolia: {
-      url: configNetwork.eth_sepolia,
+      url: configNetwork.sepolia,
       accounts: [PRIVATE_KEY],
     },
     arbitrum_sepolia: {
@@ -125,7 +122,7 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      mainet: API_KEY_ETHERSCAN,
+      mainnet: API_KEY_ETHERSCAN,
       arbitrum: API_KEY_ARBISCAN,
       bsc: API_KEY_BSCSCAN,
       base: API_KEY_BASESCAN,

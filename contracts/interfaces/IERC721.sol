@@ -6,10 +6,5 @@ interface IERC721 {
   function ownerOf(uint256 tokenId) external view returns (address owner);
   function approve(address to, uint256 tokenId) external;
   function transferFrom(address from, address to, uint256 tokenId) external;
-  function safeTransferFrom(
-    address from,
-    address to,
-    uint256 tokenId,
-    bytes calldata data
-  ) external;
+  function safeTransferFrom(address from, address to, uint256 tokenId) external;
 }
