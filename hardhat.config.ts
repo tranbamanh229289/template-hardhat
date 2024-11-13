@@ -1,6 +1,8 @@
 import { HardhatUserConfig } from "hardhat/config";
-import * as dotenv from "dotenv";
 import "@nomicfoundation/hardhat-toolbox";
+import "hardhat-deploy";
+import "hardhat-deploy-ethers";
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -10,7 +12,6 @@ const API_KEY_ARBISCAN = process.env.API_KEY_ARBISCAN as string;
 const API_KEY_BSCSCAN = process.env.API_KEY_BSCSCAN as string;
 const API_KEY_BASESCAN = process.env.API_KEY_BASESCAN as string;
 const API_KEY_POLYGONSCAN = process.env.API_KEY_POLYGONSCAN as string;
-const API_KEY_SNOWTRACE = process.env.API_KEY_SNOWTRACE as string;
 const API_KEY_BLASTSCAN = process.env.API_KEY_BLASTSCAN as string;
 const API_KEY_OPTIMISMSCAN = process.env.API_KEY_OPTIMISMSCAN as string;
 
@@ -28,6 +29,7 @@ const configNetwork = {
   blast: "https://rpc.blast.io",
   avalanche: "https://avalanche-c-chain-rpc.publicnode.com",
   optimism: "https://mainnet.optimism.io",
+  sei: "https://sei.drpc.org",
   sepolia: "https://sepolia.drpc.org",
   arbitrum_sepolia: "https://sepolia-rollup.arbitrum.io/rpc",
   bsc_testnet: "https://bsc-testnet-dataseed.bnbchain.org",
@@ -36,10 +38,13 @@ const configNetwork = {
   blast_sepolia: "https://sepolia.blast.io",
   avalanche_fuji: "https://avalanche-fuji-c-chain-rpc.publicnode.com",
   optimism_sepolia: "https://sepolia.optimism.io",
+  sei_atlantic: "https://evm-rpc-testnet.sei-apis.com",
 };
 
 //Config hardhat
 const config: HardhatUserConfig = {
+  defaultNetwork: "hardhat",
+  namedAccounts: { deployer: { default: 0 } },
   solidity: {
     version: "0.8.20",
     settings: {
@@ -87,6 +92,10 @@ const config: HardhatUserConfig = {
       url: configNetwork.optimism,
       accounts: [PRIVATE_KEY],
     },
+    sei: {
+      url: configNetwork.sei,
+      accounts: [PRIVATE_KEY],
+    },
     eth_sepolia: {
       url: configNetwork.sepolia,
       accounts: [PRIVATE_KEY],
@@ -119,7 +128,12 @@ const config: HardhatUserConfig = {
       url: configNetwork.optimism_sepolia,
       accounts: [PRIVATE_KEY],
     },
+    sei_atlantic: {
+      url: configNetwork.sei_atlantic,
+      accounts: [PRIVATE_KEY],
+    },
   },
+
   etherscan: {
     apiKey: {
       mainnet: API_KEY_ETHERSCAN,
@@ -128,17 +142,50 @@ const config: HardhatUserConfig = {
       base: API_KEY_BASESCAN,
       polygon: API_KEY_POLYGONSCAN,
       blast: API_KEY_BLASTSCAN,
-      avalanche: API_KEY_SNOWTRACE,
       optimism: API_KEY_OPTIMISMSCAN,
-      eth_sepolia: API_KEY_ETHERSCAN,
-      arbitrum_sepolia: API_KEY_ARBISCAN,
-      bsc_testnet: API_KEY_BSCSCAN,
-      base_sepolia: API_KEY_BASESCAN,
-      polygon_amoy: API_KEY_POLYGONSCAN,
-      blast_sepolia: API_KEY_BLASTSCAN,
-      avalanche_fuji: API_KEY_SNOWTRACE,
-      optimism_sepolia: API_KEY_OPTIMISMSCAN,
     },
+    customChains: [
+      {
+        network: "sei",
+        chainId: 1329,
+        urls: {
+          apiURL: "https://seitrace.com/pacific-1/api",
+          browserURL: "https://seitrace.com",
+        },
+      },
+      {
+        network: "sei_atlantic",
+        chainId: 1328,
+        urls: {
+          apiURL: "https://seitrace.com/atlantic-2/api",
+          browserURL: "https://seitrace.com",
+        },
+      },
+
+      {
+        network: "avalanche",
+        chainId: 43114,
+        urls: {
+          apiURL:
+            "https://api.routescan.io/v2/network/mainnet/evm/43114/etherscan",
+          browserURL: "https://snowtrace.io/",
+        },
+      },
+      {
+        network: "avalanche_fuji",
+        chainId: 43113,
+        urls: {
+          apiURL:
+            "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
+          browserURL: "https://testnet.snowtrace.io/",
+        },
+      },
+    ],
+  },
+  sourcify: {
+    enabled: true,
+    apiUrl: "https://sourcify.dev/server",
+    browserUrl: "https://repo.sourcify.dev",
   },
 };
 

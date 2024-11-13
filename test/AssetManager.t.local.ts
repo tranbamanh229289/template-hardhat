@@ -154,13 +154,13 @@ describe("AssetsManager", function () {
         ethAssets + amount
       );
     });
-    it.only("deposit ETH emit DepositETH event", async () => {
+    it("deposit ETH emit DepositETH event", async () => {
       const { signer1, assetManager } = await loadFixture(deployFixture);
       const amount: bigint = ethers.parseEther("100");
 
       const timestamp: number = await getTimestamp();
 
-      await expect(depositETH(signer1, assetManager, amount))
+      expect(await depositETH(signer1, assetManager, amount))
         .to.emit(assetManager, "DepositETH")
         .withArgs(signer1.address, amount, await getTimestamp());
     });
@@ -196,7 +196,7 @@ describe("AssetsManager", function () {
       await depositETH(signer1, assetManager, amountDeposit);
       const timestamp: number = await getTimestamp();
 
-      await expect(withdrawETH(signer1, assetManager, amountWithdraw))
+      expect(await withdrawETH(signer1, assetManager, amountWithdraw))
         .to.emit(assetManager, "WithdrawETH")
         .withArgs(signer1.address, amountWithdraw, timestamp);
     });
@@ -287,7 +287,7 @@ describe("AssetsManager", function () {
 
       const timestamp: number = await getTimestamp();
 
-      await expect(await deposit(signer1, assetManager, depositParam))
+      expect(await deposit(signer1, assetManager, depositParam))
         .to.emit(assetManager, "Deposit")
         .withArgs(
           signer1.address,
@@ -378,7 +378,7 @@ describe("AssetsManager", function () {
       await deposit(signer1, assetManager, depositParam);
       const timestamp: number = await getTimestamp();
 
-      await expect(withdraw(signer1, assetManager, withdrawParam))
+      expect(await withdraw(signer1, assetManager, withdrawParam))
         .to.emit(assetManager, "Withdraw")
         .withArgs(
           signer1.address,
@@ -472,7 +472,7 @@ describe("AssetsManager", function () {
       .connect(signer1)
       .approve(await assetManager.getAddress(), tokenId);
     const timestamp: number = await getTimestamp();
-    await expect(deposit(signer1, assetManager, depositParam))
+    expect(await deposit(signer1, assetManager, depositParam))
       .to.emit(assetManager, "Deposit")
       .withArgs(
         signer1.address,
@@ -542,7 +542,7 @@ describe("AssetsManager", function () {
       .approve(await assetManager.getAddress(), tokenId);
     await deposit(signer1, assetManager, depositParam);
     const timestamp: number = await getTimestamp();
-    await expect(withdraw(signer1, assetManager, withdrawParam))
+    expect(await withdraw(signer1, assetManager, withdrawParam))
       .to.emit(assetManager, "Withdraw")
       .withArgs(
         signer1.address,

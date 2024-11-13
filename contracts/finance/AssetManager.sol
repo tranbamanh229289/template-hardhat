@@ -3,16 +3,17 @@ pragma solidity 0.8.20;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import {IERC721ReceiverUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC721/IERC721ReceiverUpgradeable.sol";
 import {IERC1155} from "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
-import {AccessGuard} from "./access/AccessGuard.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {AccessControlUpgradeable} from "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
-contract AssetManager is AccessGuard, ReentrancyGuard {
-  using EnumerableSet for EnumerableSet.AddressSet;
-
+contract AssetManager is
+  ReentrancyGuard,
+  Initializable,
+  AccessControlUpgradeable
+{
   /* Error */
   error NotEnoughETH();
   error NotEnoughWithdraw();
@@ -81,7 +82,7 @@ contract AssetManager is AccessGuard, ReentrancyGuard {
     public erc721Asset;
 
   /* Constructor */
-  constructor() {}
+  function initialize() public initializer {}
 
   /* Modifier */
 

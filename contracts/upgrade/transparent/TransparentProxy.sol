@@ -2,16 +2,24 @@
 
 pragma solidity ^0.8.20;
 
-abstract contract Proxy {
+contract TransparentProxy {
+  error OnlyAdmin();
   error TransactionFailed();
 
   address public implementation;
+  address public admin;
 
   constructor(address _implementation) {
     implementation = _implementation;
+    admin = msg.sender;
   }
 
-  function upgrade(address _newImplementation) external {
+  modifier onlyAdmin() {
+    if (msg.sender != admin) revert OnlyAdmin();
+    _;
+  }
+
+  function upgrade(address _newImplementation) external onlyAdmin {
     implementation = _newImplementation;
   }
 
@@ -21,6 +29,5 @@ abstract contract Proxy {
       revert TransactionFailed();
     }
   }
-
-  receive() external payable virtual {}
+  receive() external payable {}
 }
