@@ -30,7 +30,7 @@ const configNetwork = {
   avalanche: "https://avalanche-c-chain-rpc.publicnode.com",
   optimism: "https://mainnet.optimism.io",
   sei: "https://sei.drpc.org",
-  sepolia: "https://sepolia.drpc.org",
+  eth_sepolia: "https://sepolia.drpc.org",
   arbitrum_sepolia: "https://sepolia-rollup.arbitrum.io/rpc",
   bsc_testnet: "https://bsc-testnet-dataseed.bnbchain.org",
   base_sepolia: "https://sepolia.base.org",
@@ -44,7 +44,6 @@ const configNetwork = {
 //Config hardhat
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
-  namedAccounts: { deployer: { default: 0 } },
   solidity: {
     version: "0.8.20",
     settings: {
@@ -97,7 +96,7 @@ const config: HardhatUserConfig = {
       accounts: [PRIVATE_KEY],
     },
     eth_sepolia: {
-      url: configNetwork.sepolia,
+      url: configNetwork.eth_sepolia,
       accounts: [PRIVATE_KEY],
     },
     arbitrum_sepolia: {
@@ -143,6 +142,13 @@ const config: HardhatUserConfig = {
       polygon: API_KEY_POLYGONSCAN,
       blast: API_KEY_BLASTSCAN,
       optimism: API_KEY_OPTIMISMSCAN,
+      eth_sepolia: API_KEY_ETHERSCAN,
+      arbitrum_sepolia: API_KEY_ARBISCAN,
+      bsc_testnet: API_KEY_BSCSCAN,
+      base_sepolia: API_KEY_BASESCAN,
+      polygon_amoy: API_KEY_POLYGONSCAN,
+      blast_sepolia: API_KEY_BLASTSCAN,
+      optimism_sepolia: API_KEY_OPTIMISMSCAN,
     },
     customChains: [
       {
