@@ -17,8 +17,11 @@ library MerkleProof {
     bytes32 leaf
   ) internal pure returns (bytes32 computeHash) {
     computeHash = leaf;
-    for (uint256 i = 0; i < merkleProof.length; i++) {
+    for (uint256 i = 0; i < merkleProof.length; ) {
       computeHash = Hash.computeKeccak256(computeHash, merkleProof[i]);
+      unchecked {
+        i++;
+      }
     }
   }
 }
