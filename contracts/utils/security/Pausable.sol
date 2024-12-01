@@ -24,12 +24,12 @@ abstract contract Pausable is AccessControl {
     _grantRole(DEFAULT_ADMIN_ROLE, adminRole);
   }
 
-  function _pause() internal virtual onlyOperator {
+  function _pause() internal virtual {
     _paused = true;
     emit Paused(msg.sender);
   }
 
-  function _unpause() internal virtual onlyOperator {
+  function _unpause() internal virtual {
     _paused = false;
     emit Unpaused(msg.sender);
   }
