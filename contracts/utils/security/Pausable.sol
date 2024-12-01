@@ -35,6 +35,8 @@ abstract contract Pausable is AccessControl {
   }
 
   function emergencyWithdraw() external virtual onlyOperator {
-    payable(msg.sender).transfer(address(this).balance);
+    if (address(this).balance > 0) {
+      payable(msg.sender).transfer(address(this).balance);
+    }
   }
 }
