@@ -20,11 +20,11 @@ library Address {
     }
   }
 
-  function sendValue(address recipient, uint256 value) internal {
+  function sendValue(address target, uint256 value) internal {
     if (address(this).balance < value) {
       revert InsufficientBalance();
     }
-    (bool success, ) = recipient.call{value: value}("");
+    (bool success, ) = target.call{value: value}("");
     if (!success) {
       revert SendValueFailed();
     }
