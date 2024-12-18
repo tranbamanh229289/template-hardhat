@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 abstract contract Proxy {
-  function _delegate(address implementation) internal {
+  function delegate(address implementation) internal {
     assembly ("memory-safe") {
       calldatacopy(0, 0, calldatasize())
       let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
@@ -18,5 +18,10 @@ abstract contract Proxy {
       }
     }
   }
-  fallback() external {}
+
+  function implementation() internal virtual returns (address);
+
+  fallback() external virtual {
+    delegate(implementation());
+  }
 }
